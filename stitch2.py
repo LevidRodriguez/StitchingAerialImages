@@ -49,9 +49,9 @@ class Stitch(object):
 
         print("key_frame: "+key_frame)
 
-        img1 = cv2.imread(key_frame)
-        img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-        cv2.imwrite("test.png",img1)
+        base_img_rgb = cv2.imread(key_frame)
+        base_img_rgb = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+        cv2.imwrite("test.png",base_img_rgb)
     
         # base_img_rgb = cv2.imread(key_frame)
         # if base_img_rgb == None:

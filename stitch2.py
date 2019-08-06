@@ -48,8 +48,8 @@ class Stitch(object):
         self.dir_list = filter(lambda x: x != key_frame, self.dir_list)
     
         base_img_rgb = cv2.imread(key_frame)
-        if base_img_rgb == None:
-            raise IOError("%s doesn't exist"+key_frame)
+        # if base_img_rgb == None:
+        #     raise IOError("%s doesn't exist"+key_frame)
         
         final_img = self.stitch(base_img_rgb, 0)        
         

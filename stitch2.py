@@ -37,10 +37,8 @@ class Stitch(object):
                 self.dir_list.remove('.DS_Store')
             except ValueError:
                 pass
-                
-        
         except:
-            # print >> sys.stderr, ("Unable to open directory: %s" % image_dir)
+            print ( sys.stderr + "Unable to open directory: %s" + image_dir)
             sys.exit(-1)
     
         self.dir_list = map(lambda x: os.path.join(image_dir, x), self.dir_list)
@@ -48,12 +46,12 @@ class Stitch(object):
         self.dir_list = filter(lambda x: x != key_frame, self.dir_list)
 
         print("key_frame: "+key_frame)
-
+        print("key_frame: "+self.dir_list)
         base_img_rgb = cv2.imread(key_frame)
-        base_img_rgb = cv2.cvtColor(base_img_rgb, cv2.COLOR_BGR2GRAY)
+        # base_img_rgb = cv2.cvtColor(base_img_rgb, cv2.COLOR_BGR2GRAY)
         cv2.imwrite("test.png",base_img_rgb)
 
-        imgx = self.stitch(base_img_rgb, 0)
+        final_img = self.stitch(base_img_rgb, 0)
     
         # base_img_rgb = cv2.imread(key_frame)
         # if base_img_rgb == None:

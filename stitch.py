@@ -10,8 +10,11 @@ class Stitch(object):
         '''  ***+++*** '''
         # self.key_frame_
         print("Hola Mundo!")
+
+        self.stitch(self, 1,0)
         pass
     def stitch(self, base_image_rgb, round=0):
+        print("Hola Mundo desde stitch")
         pass
     pass
 

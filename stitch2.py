@@ -47,7 +47,11 @@ class Stitch(object):
         
         self.dir_list = filter(lambda x: x != key_frame, self.dir_list)
 
-        print("key_frame"+key_frame)
+        print("key_frame: "+key_frame)
+
+        img1 = cv2.imread(key_frame)
+        img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+        cv2.imwrite("test.png",img1)
     
         # base_img_rgb = cv2.imread(key_frame)
         # if base_img_rgb == None:
@@ -331,9 +335,9 @@ if __name__ == '__main__':
         print ("Usage: %s <image_dir> <key_frame> <output>" % sys.argv[0])
         sys.exit(-1)
     print("sys.argv[1]: "+sys.argv[1]+", sys.argv[2]: "+sys.argv[2]+", sys.argv[3]: "+sys.argv[3])
-    img1 = cv2.imread(sys.argv[2])
-    img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-    cv2.imwrite("test.png",img1)
+    # img1 = cv2.imread(sys.argv[2])
+    # img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+    # cv2.imwrite("test.png",img1)
     # cv2.imwrite("srctest.png",sys.argv[])
     
     Stitch(sys.argv[1], sys.argv[2], sys.argv[3])

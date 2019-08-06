@@ -332,6 +332,6 @@ if __name__ == '__main__':
     img1 = cv2.imread(sys.argv[2])
     img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
     cv2.imwrite("test.png",img1)
-    cv2.imwrite("srctest.png",sys.argv[2])
+    # cv2.imwrite("srctest.png",sys.argv[])
     
-    # Stitch(sys.argv[1], sys.argv[2], sys.argv[3])
+    Stitch(sys.argv[1], sys.argv[2], sys.argv[3])

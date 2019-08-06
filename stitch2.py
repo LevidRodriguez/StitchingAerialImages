@@ -52,6 +52,8 @@ class Stitch(object):
         base_img_rgb = cv2.imread(key_frame)
         base_img_rgb = cv2.cvtColor(base_img_rgb, cv2.COLOR_BGR2GRAY)
         cv2.imwrite("test.png",base_img_rgb)
+
+        imgx = self.stitch(base_img_rgb, 0)
     
         # base_img_rgb = cv2.imread(key_frame)
         # if base_img_rgb == None:

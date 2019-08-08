@@ -2,10 +2,10 @@ import cv2
 import numpy as np
 import copy
 
-img1 = cv2.imread('0.bmp')
+img1 = cv2.imread('DJI_0874.JPG')
 imgGray1 = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
 
-img2 = cv2.imread('2.bmp')
+img2 = cv2.imread('DJI_0875.JPG')
 imgGray2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
 
 detector = cv2.ORB_create()
@@ -38,12 +38,21 @@ cv2.imwrite("matches.png", img3)
 
 src_pts = np.float32([ kp1[m.queryIdx].pt for m in good ]).reshape(-1,1,2)
 dst_pts = np.float32([ kp2[m.trainIdx].pt for m in good ]).reshape(-1,1,2)
-
 A = cv2.estimateRigidTransform(src_pts,dst_pts,fullAffine=False)
 
-if (A == None):
+print (A)
+
+if (A.all == None):
   HomogResult = cv2.findHomography(src_pts,dst_pts,method=cv2.RANSAC)
   H = HomogResult[0]
+  M = H
+else:
+  M = A
+
+# dst = cv2.warpPerspective(img1,M,(img2.shape[1] + img1.shape[1], img2.shape[0]))
+# dst[0:img2.shape[0],0:img2.shape[1]] = img2
+# cv2.imwrite("original_image_stitched.jpg", dst)  
+
 
 h1,w1 = img1.shape[:2]
 h2,w2 = img2.shape[:2]
@@ -66,11 +75,8 @@ allCorners = np.concatenate((corners1, warpedCorners2), axis=0)
 [xMin, yMin] = np.int32(allCorners.min(axis=0).ravel() - 0.5)
 [xMax, yMax] = np.int32(allCorners.min(axis=0).ravel() + 0.5)
 
-''' Compute Image Alignment and Keypoint Alignment '''
-resultImage = copy.copy(img1)
-
 translation = np.float32(([1, 0, -1*yMin], [0,0,1]))
-warpedResImg = cv2.warpPerspective(img1, translation, (xMax-xMin, yMax-yMin))
+warpedResImg = cv2.warpPerspective(img1.shape[:2], translation, (xMax-xMin, yMax-yMin))
 
 if(A == None):
     fullTransformation = np.dot(translation, H)
@@ -78,3 +84,4 @@ if(A == None):
 else:
     warpedImageTemp = cv2.warpPerspective(img2, translation, (xMax-xMin, yMax-yMin))
     warpedImage2 = cv2.warpAffine(warpedImageTemp, A, (xMax-xMin, yMax-yMin))
+

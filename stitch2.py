@@ -52,3 +52,29 @@ corners1 = np.float32(([0,0],[0,h1],[w1, h1], [w1,0]))
 corners2 = np.float32(([0,0],[0,h2],[w2, h2], [w2,0]))
 warpedCorners2= np.zeros((4,2))
 
+for i in range(0,4):
+    cornerX = corners2[i, 0]
+    cornerY = corners2[i, 1]
+    if (A!= None):
+        warpedCorners2[i, 0] = A[0,0]*cornerX + A[0,1]*cornerY + A[0,2]
+        warpedCorners2[i, 1] = A[1,0]*cornerX + A[1,1]*cornerY + A[1,2]
+    else:
+        warpedCorners2[i, 0] = (H[0,0]*cornerX + H[0,1]*cornerY + H[0,2]) / (H[2,0]*cornerX + H[2,1]*cornerY + H[2,2])
+        warpedCorners2[i, 1] = (H[1,0]*cornerX + H[1,1]*cornerY + H[1,2]) / (H[2,1]*cornerX + H[2,1]*cornerY + H[2,2])
+
+allCorners = np.concatenate((corners1, warpedCorners2), axis=0)
+[xMin, yMin] = np.int32(allCorners.min(axis=0).ravel() - 0.5)
+[xMax, yMax] = np.int32(allCorners.min(axis=0).ravel() + 0.5)
+
+''' Compute Image Alignment and Keypoint Alignment '''
+resultImage = copy.copy(img1)
+
+translation = np.float32(([1, 0, -1*yMin], [0,0,1]))
+warpedResImg = cv2.warpPerspective(img1, translation, (xMax-xMin, yMax-yMin))
+
+if(A == None):
+    fullTransformation = np.dot(translation, H)
+    warpedImage = cv2.warpPerspective(img2, fullTransformation, (xMax-xMin, yMax-yMin))
+else:
+    warpedImageTemp = cv2.warpPerspective(img2, translation, (xMax-xMin, yMax-yMin))
+    warpedImage2 = cv2.warpAffine(warpedImageTemp, A, (xMax-xMin, yMax-yMin))

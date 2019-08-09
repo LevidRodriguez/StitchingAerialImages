@@ -1,11 +1,12 @@
 import cv2
 import numpy as np
 import copy
+from google.colab import files
 
-img1 = cv2.imread('DJI_0874.JPG')
+img1 = cv2.imread('DJI_0405.JPG')
 imgGray1 = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
 
-img2 = cv2.imread('DJI_0875.JPG')
+img2 = cv2.imread('DJI_0406.JPG')
 imgGray2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
 
 detector = cv2.ORB_create()
@@ -42,17 +43,9 @@ A = cv2.estimateRigidTransform(src_pts,dst_pts,fullAffine=False)
 
 print (A)
 
-if (A.all == None):
+if (A == None):
   HomogResult = cv2.findHomography(src_pts,dst_pts,method=cv2.RANSAC)
   H = HomogResult[0]
-  M = H
-else:
-  M = A
-
-# dst = cv2.warpPerspective(img1,M,(img2.shape[1] + img1.shape[1], img2.shape[0]))
-# dst[0:img2.shape[0],0:img2.shape[1]] = img2
-# cv2.imwrite("original_image_stitched.jpg", dst)  
-
 
 h1,w1 = img1.shape[:2]
 h2,w2 = img2.shape[:2]
@@ -75,13 +68,31 @@ allCorners = np.concatenate((corners1, warpedCorners2), axis=0)
 [xMin, yMin] = np.int32(allCorners.min(axis=0).ravel() - 0.5)
 [xMax, yMax] = np.int32(allCorners.min(axis=0).ravel() + 0.5)
 
-translation = np.float32(([1, 0, -1*yMin], [0,0,1]))
-warpedResImg = cv2.warpPerspective(img1.shape[:2], translation, (xMax-xMin, yMax-yMin))
+translation = np.float32(([1,0,-1*xMin],[0,1,-1*yMin],[0,0,1]))
+
+warpedResImg = cv2.warpPerspective(img1, translation, (xMax-xMin, yMax-yMin))
 
 if(A == None):
     fullTransformation = np.dot(translation, H)
-    warpedImage = cv2.warpPerspective(img2, fullTransformation, (xMax-xMin, yMax-yMin))
+    warpedImage2 = cv2.warpPerspective(img2, fullTransformation, (xMax-xMin, yMax-yMin))
 else:
     warpedImageTemp = cv2.warpPerspective(img2, translation, (xMax-xMin, yMax-yMin))
     warpedImage2 = cv2.warpAffine(warpedImageTemp, A, (xMax-xMin, yMax-yMin))
+    
+result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
 
+# resGray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+# warpedResGray = cv2.warpPerspective(resGray, translation, (xMax - xMin, yMax - yMin))
+
+# ret, mask1 = cv2.threshold(warpedResGray, 1, 255, cv2.THRESH_BINARY_INV)
+# mask3 = np.float32(mask1)/255
+
+# warpedImage2[:,:,0] = warpedImage2[:,:,0] * mask3
+# warpedImage2[:,:,1] = warpedImage2[:,:,1] * mask3
+# warpedImage2[:,:,2] = warpedImage2[:,:,2] * mask3
+
+# result = warpedResImg + warpedImage2
+# result = warpedImage2
+
+cv2.imwrite("result.png", result)
+# files.download("result.png")

@@ -3,16 +3,19 @@ import numpy as np
 import copy
 from google.colab import files
 
-img1 = cv2.imread('DJI_0405.JPG')
-imgGray1 = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
-
-img2 = cv2.imread('DJI_0406.JPG')
-imgGray2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
-
 detector = cv2.ORB_create()
 # detector = cv2.AKAZE_create()
+
+img1 = cv2.imread('DJI_0817.JPG')
+imgGray1 = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
+ret1, mask1 = cv2.threshold(imgGray1, 1, 255, cv2.THRESH_BINARY)
 # find key points
 kp1, des1 = detector.detectAndCompute(imgGray1,None)
+
+img2 = cv2.imread('DJI_0818.JPG')
+imgGray2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+ret2, mask2 = cv2.threshold(imgGray2, 1, 255, cv2.THRESH_BINARY)
+# find key points
 kp2, des2 = detector.detectAndCompute(imgGray2,None)
 
 # Visualize matching procedure
@@ -31,19 +34,27 @@ good = []
 for m,n in matches:
     if m.distance < 0.9*n.distance:
         good.append(m)
+
 matches = copy.copy(good)
         
 img3 = cv2.drawMatches(img1, kp1, img2, kp2, good, None, flags = 2)
-
 cv2.imwrite("matches.png", img3)
 
 src_pts = np.float32([ kp1[m.queryIdx].pt for m in good ]).reshape(-1,1,2)
 dst_pts = np.float32([ kp2[m.trainIdx].pt for m in good ]).reshape(-1,1,2)
+
 A = cv2.estimateRigidTransform(src_pts,dst_pts,fullAffine=False)
 
-print (A)
+# HomogResult = cv2.findHomography(src_pts,dst_pts,method=cv2.RANSAC)
+# H = HomogResult[0]
 
-if (A == None):
+print ("A: ",A)
+print ("H: ",H)
+
+# A=H
+
+if (A is None):
+  print("A is None")
   HomogResult = cv2.findHomography(src_pts,dst_pts,method=cv2.RANSAC)
   H = HomogResult[0]
 
@@ -57,42 +68,46 @@ warpedCorners2= np.zeros((4,2))
 for i in range(0,4):
     cornerX = corners2[i, 0]
     cornerY = corners2[i, 1]
-    if (A!= None):
+    if (A is not None):
+        print("A is not None")
         warpedCorners2[i, 0] = A[0,0]*cornerX + A[0,1]*cornerY + A[0,2]
         warpedCorners2[i, 1] = A[1,0]*cornerX + A[1,1]*cornerY + A[1,2]
     else:
         warpedCorners2[i, 0] = (H[0,0]*cornerX + H[0,1]*cornerY + H[0,2]) / (H[2,0]*cornerX + H[2,1]*cornerY + H[2,2])
-        warpedCorners2[i, 1] = (H[1,0]*cornerX + H[1,1]*cornerY + H[1,2]) / (H[2,1]*cornerX + H[2,1]*cornerY + H[2,2])
+        warpedCorners2[i, 1] = (H[1,0]*cornerX + H[1,1]*cornerY + H[1,2]) / (H[2,0]*cornerX + H[2,1]*cornerY + H[2,2])
 
 allCorners = np.concatenate((corners1, warpedCorners2), axis=0)
 [xMin, yMin] = np.int32(allCorners.min(axis=0).ravel() - 0.5)
-[xMax, yMax] = np.int32(allCorners.min(axis=0).ravel() + 0.5)
+[xMax, yMax] = np.int32(allCorners.max(axis=0).ravel() + 0.5)
 
 translation = np.float32(([1,0,-1*xMin],[0,1,-1*yMin],[0,0,1]))
 
 warpedResImg = cv2.warpPerspective(img1, translation, (xMax-xMin, yMax-yMin))
 
-if(A == None):
+
+if (A is None):
     fullTransformation = np.dot(translation, H)
     warpedImage2 = cv2.warpPerspective(img2, fullTransformation, (xMax-xMin, yMax-yMin))
 else:
     warpedImageTemp = cv2.warpPerspective(img2, translation, (xMax-xMin, yMax-yMin))
     warpedImage2 = cv2.warpAffine(warpedImageTemp, A, (xMax-xMin, yMax-yMin))
-    
-result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
 
-# resGray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-# warpedResGray = cv2.warpPerspective(resGray, translation, (xMax - xMin, yMax - yMin))
+# result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
 
-# ret, mask1 = cv2.threshold(warpedResGray, 1, 255, cv2.THRESH_BINARY_INV)
-# mask3 = np.float32(mask1)/255
+resGray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+warpedResGray = cv2.warpPerspective(resGray, translation, (xMax - xMin, yMax - yMin))
+ret, mask1 = cv2.threshold(warpedResGray, 1, 255, cv2.THRESH_BINARY_INV)
+mask3 = np.float32(mask1)/255
 
-# warpedImage2[:,:,0] = warpedImage2[:,:,0] * mask3
-# warpedImage2[:,:,1] = warpedImage2[:,:,1] * mask3
-# warpedImage2[:,:,2] = warpedImage2[:,:,2] * mask3
+warpedImage2[:,:,0] = warpedImage2[:,:,0] * mask3
+warpedImage2[:,:,1] = warpedImage2[:,:,1] * mask3
+warpedImage2[:,:,2] = warpedImage2[:,:,2] * mask3
 
-# result = warpedResImg + warpedImage2
-# result = warpedImage2
+print("warpedImage2", warpedImage2)
+print("warpedResImg", warpedResImg)
+
+result = warpedResImg + warpedImage2
+# result = warpedResImg
 
 cv2.imwrite("result.png", result)
 # files.download("result.png")

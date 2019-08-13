@@ -3,6 +3,10 @@ import numpy as np
 import copy
 from google.colab import files
 
+def stitchPair(img1, img2):
+    print("img1, img2")
+    pass
+
 detector = cv2.ORB_create()
 # detector = cv2.AKAZE_create()
 

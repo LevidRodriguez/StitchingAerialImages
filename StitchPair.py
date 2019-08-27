@@ -86,7 +86,7 @@ def stitchPair(img1, img2):
     pass
 
 if __name__ == "__main__":
-  img1 = cv2.imread('DJI_0874.JPG')
-  img2 = cv2.imread('DJI_0875.JPG')
+  img1 = cv2.imread('DJI_0398.JPG')
+  img2 = cv2.imread('DJI_0397.JPG')
   stitchPair(img1, img2)
   pass

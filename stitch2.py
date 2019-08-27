@@ -36,8 +36,13 @@ matches = match.knnMatch(des1,des2,k=2)
 #prune bad matches
 good = []
 for m,n in matches:
-    if m.distance < 0.9*n.distance:
+    if m.distance < 0.55*n.distance:
         good.append(m)
+
+print (str(len(good)) + " Matches were Found")
+
+# if len(good) <= 10:
+#     return image1
 
 matches = copy.copy(good)
         
@@ -48,14 +53,6 @@ src_pts = np.float32([ kp1[m.queryIdx].pt for m in good ]).reshape(-1,1,2)
 dst_pts = np.float32([ kp2[m.trainIdx].pt for m in good ]).reshape(-1,1,2)
 
 A = cv2.estimateRigidTransform(src_pts,dst_pts,fullAffine=False)
-
-# HomogResult = cv2.findHomography(src_pts,dst_pts,method=cv2.RANSAC)
-# H = HomogResult[0]
-
-print ("A: ",A)
-print ("H: ",H)
-
-# A=H
 
 if (A is None):
   print("A is None")
@@ -96,22 +93,17 @@ else:
     warpedImageTemp = cv2.warpPerspective(img2, translation, (xMax-xMin, yMax-yMin))
     warpedImage2 = cv2.warpAffine(warpedImageTemp, A, (xMax-xMin, yMax-yMin))
 
-# result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
+result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
 
-resGray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-warpedResGray = cv2.warpPerspective(resGray, translation, (xMax - xMin, yMax - yMin))
-ret, mask1 = cv2.threshold(warpedResGray, 1, 255, cv2.THRESH_BINARY_INV)
-mask3 = np.float32(mask1)/255
+# resGray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+# warpedResGray = cv2.warpPerspective(resGray, translation, (xMax - xMin, yMax - yMin))
+# ret, mask1 = cv2.threshold(warpedResGray, 1, 255, cv2.THRESH_BINARY_INV)
+# mask3 = np.float32(mask1)/255
 
-warpedImage2[:,:,0] = warpedImage2[:,:,0] * mask3
-warpedImage2[:,:,1] = warpedImage2[:,:,1] * mask3
-warpedImage2[:,:,2] = warpedImage2[:,:,2] * mask3
+# warpedImage2[:,:,0] = warpedImage2[:,:,0] * mask3
+# warpedImage2[:,:,1] = warpedImage2[:,:,1] * mask3
+# warpedImage2[:,:,2] = warpedImage2[:,:,2] * mask3
 
-print("warpedImage2", warpedImage2)
-print("warpedResImg", warpedResImg)
-
-result = warpedResImg + warpedImage2
-# result = warpedResImg
+# result = warpedResImg + warpedImage2
 
 cv2.imwrite("result.png", result)
-# files.download("result.png")

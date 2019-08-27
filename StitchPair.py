@@ -2,12 +2,15 @@ import cv2
 import numpy as np
 
 def stitchPair(img1, img2):
+    # Detector
     detector = cv2.ORB_create()
+    # Imagen 1
     imgGray1 = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
     ret1, mask1 = cv2.threshold(imgGray1, 1, 255, cv2.THRESH_BINARY)
     # find key points
     kp1, des1 = detector.detectAndCompute(imgGray1,None)
-
+    
+    # Imagen 2
     imgGray2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
     ret2, mask2 = cv2.threshold(imgGray2, 1, 255, cv2.THRESH_BINARY)
     # find key points
@@ -73,7 +76,7 @@ def stitchPair(img1, img2):
     translation = np.float32(([1,0,-1*xMin],[0,1,-1*yMin],[0,0,1]))
 
     warpedResImg = cv2.warpPerspective(img1, translation, (xMax-xMin, yMax-yMin))
-    
+
     if (A is None):
         fullTransformation = np.dot(translation, H)
         warpedImage2 = cv2.warpPerspective(img2, fullTransformation, (xMax-xMin, yMax-yMin))
@@ -83,4 +86,10 @@ def stitchPair(img1, img2):
 
     result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
     return result
+    pass
+
+if __name__ == "__main__":
+    img1 = cv2.imread('DJI_0874.JPG')
+    img2 = cv2.imread('DJI_0875.JPG')
+    stitchPair(img1, img2)
     pass

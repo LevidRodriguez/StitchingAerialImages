@@ -8,9 +8,15 @@ from numpy import linalg
 class Stitch(object):
     def __init__(self, image_dir, key_frame, output_dir, image_filter=None):
         '''  ***+++*** '''
-        # self.key_frame_
-        print("Hola Mundo!")
-        # self.stitch(key_frame,0)
+        self.key_frame_file = os.path.split(key_frame)[-1]
+        self.dir_list = os.listdir(image_dir)
+        try:
+            self.dir_list.remove('.DS_Store')
+            pass
+        except: ValueError
+            pass
+        self.dir_list = map(lambda x: os.path.join(image_dir, x), self.dir_list)
+        self.dir_list = filter(lambda x: x != key_frame, self.dir_list)
         pass
     
     def stitch(self, base_image_rgb, round=0):
@@ -18,7 +24,7 @@ class Stitch(object):
         pass
     
     pass
-
+    
 if __name__ == '__main__':
     if ( len(sys.argv) < 4 ):
         print ("Usage: %s <image_dir> <key_frame> <output>" % sys.argv[0])

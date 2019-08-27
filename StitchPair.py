@@ -1,3 +1,4 @@
+import sys
 import cv2
 import numpy as np
 
@@ -85,6 +86,27 @@ def stitchPair(img1, img2):
     return result
     pass
 
+def Combinar(image_dir, key_frame, output_dir):
+    key_frame_file = os.path.split(key_frame)[-1]
+    dir_list = os.listdir(image_dir)
+    try:
+        dir_list.remove('.DS_Store')
+    except: ValueError
+
+    out_dir_list = filter(lambda x: x != key_frame, dir_list)
+
+    dir_list = map(lambda x: os.path.join(image_dir, x), dir_list)
+    dir_list = filter(lambda x: x != key_frame, dir_list)
+    print (dir_list)
+    # result = cv2.imread(dir_list[0])
+    print(dir_list[0])
+    for image in range(1, len(dir_list)):
+        # result = stitchPair(result, cv2.imread(image))
+        print(dir_list[image])
+        print(image)
+        pass
+    pass
+
 if __name__ == "__main__":
   img1 = cv2.imread('DJI_0398.JPG')
   img2 = cv2.imread('DJI_0397.JPG')
@@ -102,4 +124,5 @@ if __name__ == "__main__":
       cv2.imwrite("result.png", result)
       pass
   cv2.imwrite("result.png", result)
+  Combinar(sys.argv[1], sys.argv[2], sys.argv[3])
   pass

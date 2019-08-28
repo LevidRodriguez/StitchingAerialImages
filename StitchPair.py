@@ -96,6 +96,7 @@ def Combinar(image_dir, key_frame, output_dir):
 
     out_dir_list = filter(lambda x: x != key_frame, dir_list)
 
+    print ("dir_lis: ", dir_list)
     dir_list = map(lambda x: os.path.join(image_dir, x), dir_list)
     # dir_list = filter(lambda x: x != key_frame, dir_list)
     print ("dir_lis: ", dir_list)

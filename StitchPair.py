@@ -29,7 +29,7 @@ def stitchPair(img1, img2):
     #prune bad matches
     good = []
     for m,n in matches:
-        if m.distance < 0.55*n.distance:
+        if m.distance < 0.9*n.distance:
             good.append(m)
 
     # print (str(len(good)) + " Matches were Found")
@@ -45,7 +45,7 @@ def stitchPair(img1, img2):
 
     A = cv2.estimateRigidTransform(src_pts,dst_pts,fullAffine=False)
 
-    if (A is None):
+    if A is None:
     #   print("A is None")
       HomogResult = cv2.findHomography(src_pts,dst_pts,method=cv2.RANSAC)
       H = HomogResult[0]
@@ -60,8 +60,7 @@ def stitchPair(img1, img2):
     for i in range(0,4):
         cornerX = corners2[i, 0]
         cornerY = corners2[i, 1]
-        if (A is not None):
-            # print("A is not None")
+        if A is not None:
             warpedCorners2[i, 0] = A[0,0]*cornerX + A[0,1]*cornerY + A[0,2]
             warpedCorners2[i, 1] = A[1,0]*cornerX + A[1,1]*cornerY + A[1,2]
         else:

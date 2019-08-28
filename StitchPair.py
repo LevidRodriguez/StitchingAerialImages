@@ -102,7 +102,9 @@ def Combinar(image_dir, key_frame, output_dir):
     # dir_list = filter(lambda x: x != key_frame, dir_list)
     print ("dir_lis: ", dir_list)
     print ("Type: ", type(dir_list))
-    # result = cv2.imread(dir_list[:1])
+    for image in dir_list[:1]:
+        # result = cv2.imread(image)
+        print ("image: ",image)
     print(dir_list[:1])
     for image in dir_list[1:]:
         # result = stitchPair(result, cv2.imread(image))

@@ -100,7 +100,7 @@ def Combinar(image_dir, key_frame, output_dir):
     dir_list = filter(lambda x: x != key_frame, dir_list)
     print (dir_list)
     # result = cv2.imread(dir_list[0])
-    print(dir_list[0])
+    # print(dir_list[0])
     for image in range(1, len(dir_list)):
         # result = stitchPair(result, cv2.imread(image))
         print(dir_list[image])

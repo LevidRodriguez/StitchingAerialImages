@@ -94,15 +94,17 @@ def Combinar(image_dir, key_frame, output_dir):
         dir_list.remove('.DS_Store')
     except: ValueError
 
-    # out_dir_list = filter(lambda x: x != key_frame, dir_list)
+    out_dir_list = filter(lambda x: x != key_frame, dir_list)
 
-    # dir_list = map(lambda x: os.path.join(image_dir, x), dir_list)
+    dir_list = map(lambda x: os.path.join(image_dir, x), dir_list)
     # dir_list = filter(lambda x: x != key_frame, dir_list)
     print ("dir_lis: ", dir_list)
-    result = cv2.imread(dir_list[:1])
-    print(dir_list[:1])
+    # result = cv2.imread(dir_list[:1])
+    # print(dir_list[:1])
+    for file in dir_list:
+        print (file)
 
-    for image in dir_list[1:]:
+    for image in dir_list:
         # result = stitchPair(result, cv2.imread(image))
         # print(dir_list[im age])
         print(image)

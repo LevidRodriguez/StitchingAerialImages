@@ -16,10 +16,10 @@ def stitchPair(img1, img2):
     kp2, des2 = detector.detectAndCompute(imgGray2,None)
 
     # Visualize matching procedure
-    print("keypoints: {}, descriptor: {}".format(len(kp1), des1.shape))
+    # print("keypoints: {}, descriptor: {}".format(len(kp1), des1.shape))
     keypoints1Im = cv2.drawKeypoints(img1, kp1, None)
     cv2.imwrite("KEYPOINTS1.png",keypoints1Im)
-    print("keypoints: {}, descriptor: {}".format(len(kp2), des2.shape))
+    # print("keypoints: {}, descriptor: {}".format(len(kp2), des2.shape))
     keypoints2Im = cv2.drawKeypoints(img2, kp2, None)
     cv2.imwrite("KEYPOINTS2.png",keypoints2Im)
 
@@ -32,7 +32,7 @@ def stitchPair(img1, img2):
         if m.distance < 0.55*n.distance:
             good.append(m)
 
-    print (str(len(good)) + " Matches were Found")
+    # print (str(len(good)) + " Matches were Found")
 
     # if len(good) <= 10:
     #     return image1
@@ -46,7 +46,7 @@ def stitchPair(img1, img2):
     A = cv2.estimateRigidTransform(src_pts,dst_pts,fullAffine=False)
 
     if (A is None):
-      print("A is None")
+    #   print("A is None")
       HomogResult = cv2.findHomography(src_pts,dst_pts,method=cv2.RANSAC)
       H = HomogResult[0]
 
@@ -61,7 +61,7 @@ def stitchPair(img1, img2):
         cornerX = corners2[i, 0]
         cornerY = corners2[i, 1]
         if (A is not None):
-            print("A is not None")
+            # print("A is not None")
             warpedCorners2[i, 0] = A[0,0]*cornerX + A[0,1]*cornerY + A[0,2]
             warpedCorners2[i, 1] = A[1,0]*cornerX + A[1,1]*cornerY + A[1,2]
         else:
@@ -97,9 +97,11 @@ def Combinar(image_dir, key_frame, output_dir):
     out_dir_list = filter(lambda x: x != key_frame, dir_list)
 
     print ("dir_lis: ", dir_list)
+    print ("Type: ", type(dir_list))
     dir_list = map(lambda x: os.path.join(image_dir, x), dir_list)
     dir_list = filter(lambda x: x != key_frame, dir_list)
     print ("dir_lis: ", dir_list)
+    print ("Type: ", type(dir_list))
     # result = cv2.imread(dir_list[:1])
     # print(dir_list[:1])
     for file in dir_list:

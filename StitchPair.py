@@ -29,7 +29,7 @@ def stitchPair(img1, img2):
     #prune bad matches
     good = []
     for m,n in matches:
-        if m.distance < 0.99*n.distance:
+        if m.distance < 0.55*n.distance:
             good.append(m)
 
     # print (str(len(good)) + " Matches were Found")

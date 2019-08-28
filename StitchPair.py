@@ -102,8 +102,20 @@ def Combinar(image_dir, key_frame, output_dir):
         result = cv2.imread(image)
     
     for image in dir_list[1:]:
+        print("Processing ",image)
         result = stitchPair(result, cv2.imread(image))
-        print(image)
+        h, w = result.shape[:2]
+        if h > 4000 and w > 4000:
+            if h > 4000:
+                h = h * (4000/h)
+                w = w * (4000/h)
+            elif x > 4000:
+                h = h * (4000/w)
+                w = w * (4000/w)
+            result = cv2.resize(result, (int(w),int(h)))
+            cv2.imwrite("result.png", result)
+            pass
+        cv2.imwrite("result.png", result)
         pass
     pass
 
@@ -115,18 +127,7 @@ if __name__ == "__main__":
     img1 = cv2.imread('DJI_0398.JPG')
     img2 = cv2.imread('DJI_0397.JPG')
     result = stitchPair(img1, img2)
-#   cv2.imwrite("result.png", result)
-    h, w = result.shape[:2]
-    if h > 4000 and w > 4000:
-        if h > 4000:
-            h = h * (4000/h)
-            w = w * (4000/h)
-        elif x > 4000:
-            h = h * (4000/w)
-            w = w * (4000/w)
-        result = cv2.resize(result, (int(w),int(h)))
-        cv2.imwrite("result.png", result)
-        pass
-    cv2.imwrite("result.png", result)
+    cv2.imwrite("Testresult.png", result)
+    # Stitch mas de dos
     Combinar(sys.argv[1], sys.argv[2], sys.argv[3])
     pass

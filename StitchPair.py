@@ -96,21 +96,13 @@ def Combinar(image_dir, key_frame, output_dir):
 
     # out_dir_list = filter(lambda x: x != key_frame, dir_list)
 
-    print ("dir_lis: ", dir_list)
-    print ("Type: ", type(dir_list))
     dir_list = list(map(lambda x: os.path.join(image_dir, x), dir_list))
     # dir_list = filter(lambda x: x != key_frame, dir_list)
-    print ("dir_lis: ", dir_list)
-    print ("Type: ", type(dir_list))
     for image in dir_list[:1]:
         result = cv2.imread(image)
-        print ("image: ",image)
     
-    # result = cv2.imread(dir_list[:1])
-
     for image in dir_list[1:]:
-        # result = stitchPair(result, cv2.imread(image))
-        result = cv2.imread(image)
+        result = stitchPair(result, cv2.imread(image))
         print(image)
         pass
     pass

@@ -101,6 +101,9 @@ def Combinar(image_dir, key_frame, output_dir):
     print ("dir_lis: ", dir_list)
     # result = cv2.imread(dir_list[:1])
     # print(dir_list[:1])
+    for file in dir_list[1:]:
+        print (file)
+
     for image in dir_list[1:]:
         # result = stitchPair(result, cv2.imread(image))
         # print(dir_list[im age])

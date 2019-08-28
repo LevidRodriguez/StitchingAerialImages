@@ -87,17 +87,14 @@ def stitchPair(img1, img2, opt):
     return result
     pass
 
-def Combinar(image_dir, output_dir, key_opt):
-    # key_frame_file = os.path.split(key_frame)[-1]
+def Combinar(image_dir, key_opt):
     dir_list = os.listdir(image_dir)
     try:
         dir_list.remove('.DS_Store')
     except: ValueError
 
-    # out_dir_list = filter(lambda x: x != key_frame, dir_list)
-
     dir_list = list(map(lambda x: os.path.join(image_dir, x), dir_list))
-    # dir_list = filter(lambda x: x != key_frame, dir_list)
+
     for image in dir_list[:1]:
         result = cv2.imread(image)
     
@@ -120,8 +117,8 @@ def Combinar(image_dir, output_dir, key_opt):
     pass
 
 if __name__ == "__main__":
-    if (len(sys.argv)<4):
-        print >> sys.stderr, ("Usage: %s <image_dir> <output> <opt>" % sys.argv[0])
+    if (len(sys.argv)<3):
+        print >> sys.stderr, ("Usage: %s <image_dir> <opt>" % sys.argv[0])
         sys.exit(-1)
         pass
     # img1 = cv2.imread('DJI_0874.JPG')
@@ -129,5 +126,5 @@ if __name__ == "__main__":
     # result = stitchPair(img1, img2)
     # cv2.imwrite("Testresult.png", result)
     # Stitch mas de dos
-    Combinar(sys.argv[1], sys.argv[2], sys.argv[3])
+    Combinar(sys.argv[1], sys.argv[2])
     pass

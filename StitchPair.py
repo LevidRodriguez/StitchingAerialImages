@@ -124,8 +124,8 @@ if __name__ == "__main__":
         print >> sys.stderr, ("Usage: %s <image_dir> <key_frame> <output>" % sys.argv[0])
         sys.exit(-1)
         pass
-    img1 = cv2.imread('DJI_0398.JPG')
-    img2 = cv2.imread('DJI_0397.JPG')
+    img1 = cv2.imread('DJI_0874.JPG')
+    img2 = cv2.imread('DJI_0875.JPG')
     result = stitchPair(img1, img2)
     cv2.imwrite("Testresult.png", result)
     # Stitch mas de dos

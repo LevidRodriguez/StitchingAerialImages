@@ -3,7 +3,7 @@ import os
 import cv2
 import numpy as np
 
-def stitchPair(img1, img2):
+def stitchPair(img1, img2, opt):
     detector = cv2.ORB_create()
     imgGray1 = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
     ret1, mask1 = cv2.threshold(imgGray1, 1, 255, cv2.THRESH_BINARY)
@@ -29,7 +29,8 @@ def stitchPair(img1, img2):
     #prune bad matches
     good = []
     for m,n in matches:
-        if m.distance < 0.55*n.distance:
+        # if m.distance < 0.55 * n.distance:
+        if m.distance < float(opt) * n.distance:
             good.append(m)
 
     # print (str(len(good)) + " Matches were Found")
@@ -86,7 +87,7 @@ def stitchPair(img1, img2):
     return result
     pass
 
-def Combinar(image_dir, key_frame, output_dir):
+def Combinar(image_dir, output_dir, key_opt):
     key_frame_file = os.path.split(key_frame)[-1]
     dir_list = os.listdir(image_dir)
     try:
@@ -102,7 +103,7 @@ def Combinar(image_dir, key_frame, output_dir):
     
     for image in dir_list[1:]:
         print("Processing ",image)
-        result = stitchPair(result, cv2.imread(image))
+        result = stitchPair(result, cv2.imread(image), key_opt)
         h, w = result.shape[:2]
         if h > 4000 and w > 4000:
             if h > 4000:
@@ -120,7 +121,7 @@ def Combinar(image_dir, key_frame, output_dir):
 
 if __name__ == "__main__":
     if (len(sys.argv)<4):
-        print >> sys.stderr, ("Usage: %s <image_dir> <key_frame> <output>" % sys.argv[0])
+        print >> sys.stderr, ("Usage: %s <image_dir> <output> <opt>" % sys.argv[0])
         sys.exit(-1)
         pass
     # img1 = cv2.imread('DJI_0874.JPG')

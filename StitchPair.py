@@ -88,7 +88,7 @@ def stitchPair(img1, img2, opt):
     pass
 
 def Combinar(image_dir, output_dir, key_opt):
-    key_frame_file = os.path.split(key_frame)[-1]
+    # key_frame_file = os.path.split(key_frame)[-1]
     dir_list = os.listdir(image_dir)
     try:
         dir_list.remove('.DS_Store')

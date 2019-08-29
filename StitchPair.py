@@ -85,6 +85,7 @@ def stitchPair(img1, img2, opt):
         warpedImage2 = cv2.warpAffine(warpedImageTemp, A, (xMax-xMin, yMax-yMin))
 
     result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
+    
     return result
     pass
 

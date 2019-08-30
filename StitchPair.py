@@ -139,4 +139,5 @@ if __name__ == "__main__":
     # cv2.imwrite("Testresult.png", result)
     # Stitch mas de dos
     Combinar(sys.argv[1], sys.argv[2])
+    print (">>> Done <<<")
     pass

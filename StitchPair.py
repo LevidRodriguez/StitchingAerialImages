@@ -48,7 +48,6 @@ def stitchPair(img1, img2, opt):
     A = cv2.estimateRigidTransform(src_pts,dst_pts,fullAffine=False)
 
     if A is None:
-    #   print("A is None")
       HomogResult = cv2.findHomography(src_pts,dst_pts,method=cv2.RANSAC)
       H = HomogResult[0]
 
@@ -119,7 +118,7 @@ def Combinar(image_dir, key_opt):
             if h > 4000:
                 h = h * (4000/h)
                 w = w * (4000/h)
-            elif x > 4000:
+            elif w > 4000:
                 h = h * (4000/w)
                 w = w * (4000/w)
             result = cv2.resize(result, (int(w),int(h)))

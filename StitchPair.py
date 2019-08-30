@@ -36,8 +36,8 @@ def stitchPair(img1, img2, opt):
 
     # print (str(len(good)) + " Matches were Found")
 
-    # if len(good) <= 10:
-    #     return image1
+    if len(good) <= 10:
+        return image1
             
     img3 = cv2.drawMatches(img1, kp1, img2, kp2, good, None, flags = 2)
     cv2.imwrite("matches.png", img3)

@@ -117,17 +117,17 @@ def Combinar(image_dir, key_opt):
         print("Processing ",image)
         result = stitchPair(result, en.compress(cv2.imread(image)), key_opt)
         # result = stitchPair(result, cv2.imread(image), key_opt)
-        h, w = result.shape[:2]
-        if h > 4000 and w > 4000:
-            if h > 4000:
-                h = h * (4000/h)
-                w = w * (4000/h)
-            elif w > 4000:
-                h = h * (4000/w)
-                w = w * (4000/w)
-            result = cv2.resize(result, (int(w),int(h)))
-            cv2.imwrite("result.png", result)
-            pass
+        # h, w = result.shape[:2]
+        # if h > 4000 and w > 4000:
+        #     if h > 4000:
+        #         h = h * (4000/h)
+        #         w = w * (4000/h)
+        #     elif w > 4000:
+        #         h = h * (4000/w)
+        #         w = w * (4000/w)
+        #     result = cv2.resize(result, (int(w),int(h)))
+        #     cv2.imwrite("result.png", result)
+        #     pass
         cv2.imwrite("result.png", result)
         pass
     pass

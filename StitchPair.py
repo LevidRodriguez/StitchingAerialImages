@@ -83,18 +83,18 @@ def stitchPair(img1, img2, opt):
         warpedImageTemp = cv2.warpPerspective(img2, translation, (xMax-xMin, yMax-yMin))
         warpedImage2 = cv2.warpAffine(warpedImageTemp, A, (xMax-xMin, yMax-yMin))
 
-    result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
+    # result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
     
-    # resGray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-    # warpedResGray = cv2.warpPerspective(resGray, translation, (xMax - xMin, yMax - yMin))
-    # ret, mask1 = cv2.threshold(warpedResGray, 1, 255, cv2.THRESH_BINARY_INV)
-    # mask3 = np.float32(mask1)/255
+    resGray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+    warpedResGray = cv2.warpPerspective(resGray, translation, (xMax - xMin, yMax - yMin))
+    ret, mask1 = cv2.threshold(warpedResGray, 1, 255, cv2.THRESH_BINARY_INV)
+    mask3 = np.float32(mask1)/255
 
-    # warpedImage2[:,:,0] = warpedImage2[:,:,0] * mask3
-    # warpedImage2[:,:,1] = warpedImage2[:,:,1] * mask3
-    # warpedImage2[:,:,2] = warpedImage2[:,:,2] * mask3
+    warpedImage2[:,:,0] = warpedImage2[:,:,0] * mask3
+    warpedImage2[:,:,1] = warpedImage2[:,:,1] * mask3
+    warpedImage2[:,:,2] = warpedImage2[:,:,2] * mask3
 
-    # result = warpedResImg + warpedImage2
+    result = warpedResImg + warpedImage2
     
     return result
     pass

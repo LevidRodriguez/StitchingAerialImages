@@ -56,6 +56,7 @@ def stitchPair(img1, img2, opt):
 
     corners1 = np.float32(([0,0],[0,h1],[w1, h1], [w1,0]))
     corners2 = np.float32(([0,0],[0,h2],[w2, h2], [w2,0]))
+    
     warpedCorners2= np.zeros((4,2))
 
     for i in range(0,4):
@@ -69,6 +70,7 @@ def stitchPair(img1, img2, opt):
             warpedCorners2[i, 1] = (H[1,0]*cornerX + H[1,1]*cornerY + H[1,2]) / (H[2,0]*cornerX + H[2,1]*cornerY + H[2,2])
 
     allCorners = np.concatenate((corners1, warpedCorners2), axis=0)
+
     [xMin, yMin] = np.int32(allCorners.min(axis=0).ravel() - 0.5)
     [xMax, yMax] = np.int32(allCorners.max(axis=0).ravel() + 0.5)
 
@@ -108,13 +110,13 @@ def Combinar(image_dir, key_opt):
     dir_list = list(map(lambda x: os.path.join(image_dir, x), dir_list))
 
     for image in dir_list[:1]:
-        result = cv2.imread(image)
-        # result = en.compress(cv2.imread(image))
+        # result = cv2.imread(image)
+        result = en.compress(cv2.imread(image))
     
     for image in dir_list[1:]:
         print("Processing ",image)
-        # result = stitchPair(result, en.compress(cv2.imread(image)), key_opt)
-        result = stitchPair(result, cv2.imread(image), key_opt)
+        result = stitchPair(result, en.compress(cv2.imread(image)), key_opt)
+        # result = stitchPair(result, cv2.imread(image), key_opt)
         h, w = result.shape[:2]
         if h > 4000 and w > 4000:
             if h > 4000:

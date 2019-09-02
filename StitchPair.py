@@ -20,10 +20,10 @@ def stitchPair(img1, img2, opt):
     # Visualize matching procedure
     # print("keypoints: {}, descriptor: {}".format(len(kp1), des1.shape))
     keypoints1Im = cv2.drawKeypoints(img1, kp1, None)
-    cv2.imwrite("KEYPOINTS1.png",keypoints1Im)
+    # cv2.imwrite("KEYPOINTS1.png",keypoints1Im)
     # print("keypoints: {}, descriptor: {}".format(len(kp2), des2.shape))
     keypoints2Im = cv2.drawKeypoints(img2, kp2, None)
-    cv2.imwrite("KEYPOINTS2.png",keypoints2Im)
+    # cv2.imwrite("KEYPOINTS2.png",keypoints2Im)
 
     match = cv2.BFMatcher_create(cv2.NORM_HAMMING)
     matches = match.knnMatch(des1,des2,k=2)
@@ -35,13 +35,13 @@ def stitchPair(img1, img2, opt):
         if m.distance < float(opt) * n.distance:
             good.append(m)
 
-    print (str(len(good)) + " Matches were Found")
+    # print (str(len(good)) + " Matches were Found")
 
     if len(good) <= 10:
         return img1
             
     img3 = cv2.drawMatches(img1, kp1, img2, kp2, good, None, flags = 2)
-    cv2.imwrite("matches.png", img3)
+    # cv2.imwrite("matches.png", img3)
 
     src_pts = np.float32([ kp1[m.queryIdx].pt for m in good ]).reshape(-1,1,2)
     dst_pts = np.float32([ kp2[m.trainIdx].pt for m in good ]).reshape(-1,1,2)
@@ -86,18 +86,18 @@ def stitchPair(img1, img2, opt):
         warpedImageTemp = cv2.warpPerspective(img2, translation, (xMax-xMin, yMax-yMin))
         warpedImage2 = cv2.warpAffine(warpedImageTemp, A, (xMax-xMin, yMax-yMin))
 
-    # result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
+    result = np.where(warpedImage2 != 0, warpedImage2, warpedResImg)
     
-    resGray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-    warpedResGray = cv2.warpPerspective(resGray, translation, (xMax - xMin, yMax - yMin))
-    ret, mask1 = cv2.threshold(warpedResGray, 1, 255, cv2.THRESH_BINARY_INV)
-    mask3 = np.float32(mask1)/255
+    # resGray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+    # warpedResGray = cv2.warpPerspective(resGray, translation, (xMax - xMin, yMax - yMin))
+    # ret, mask1 = cv2.threshold(warpedResGray, 1, 255, cv2.THRESH_BINARY_INV)
+    # mask3 = np.float32(mask1)/255
 
-    warpedImage2[:,:,0] = warpedImage2[:,:,0] * mask3
-    warpedImage2[:,:,1] = warpedImage2[:,:,1] * mask3
-    warpedImage2[:,:,2] = warpedImage2[:,:,2] * mask3
+    # warpedImage2[:,:,0] = warpedImage2[:,:,0] * mask3
+    # warpedImage2[:,:,1] = warpedImage2[:,:,1] * mask3
+    # warpedImage2[:,:,2] = warpedImage2[:,:,2] * mask3
 
-    result = warpedResImg + warpedImage2
+    # result = warpedResImg + warpedImage2
     
     return result
     pass

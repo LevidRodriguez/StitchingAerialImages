@@ -5,8 +5,8 @@ import numpy as np
 import JPEGEncoder as en
 
 def stitchPair(img1, img2, opt):
-    # detector = cv2.ORB_create()
-    detector = cv2.AKAZE_create()
+    detector = cv2.ORB_create()
+    # detector = cv2.AKAZE_create()
     imgGray1 = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
     ret1, mask1 = cv2.threshold(imgGray1, 1, 255, cv2.THRESH_BINARY)
     # find key points

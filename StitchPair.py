@@ -111,13 +111,13 @@ def Combinar(image_dir, key_opt):
     dir_list = list(map(lambda x: os.path.join(image_dir, x), dir_list))
 
     for image in dir_list[:1]:
-        # result = cv2.imread(image)
-        result = en.compress(cv2.imread(image))
+        result = cv2.imread(image)
+        # result = en.compress(cv2.imread(image))
     
     for image in dir_list[1:]:
         print("Processing ",image)
-        result = stitchPair(result, en.compress(cv2.imread(image)), key_opt)
-        # result = stitchPair(result, cv2.imread(image), key_opt)
+        # result = stitchPair(result, en.compress(cv2.imread(image)), key_opt)
+        result = stitchPair(result, cv2.imread(image), key_opt)
         h, w = result.shape[:2]
         if h > 4000 and w > 4000:
             if h > 4000:

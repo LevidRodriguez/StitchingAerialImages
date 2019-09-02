@@ -109,7 +109,9 @@ def Combinar(image_dir, key_opt):
     except: ValueError
 
     dir_list = list(map(lambda x: os.path.join(image_dir, x), dir_list))
-
+    print(dir_list)
+    dir_list.sort()
+    print(dir_list)
     for image in dir_list[:1]:
         # result = cv2.imread(image)
         result = en.compress(cv2.imread(image))

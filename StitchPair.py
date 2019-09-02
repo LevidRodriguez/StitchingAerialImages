@@ -35,7 +35,7 @@ def stitchPair(img1, img2, opt):
         if m.distance < float(opt) * n.distance:
             good.append(m)
 
-    # print (str(len(good)) + " Matches were Found")
+    print (str(len(good)) + " Matches were Found")
 
     if len(good) <= 10:
         return img1

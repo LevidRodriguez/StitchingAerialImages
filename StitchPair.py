@@ -115,10 +115,12 @@ def Combinar(image_dir, key_opt):
     for image in dir_list[:1]:
         # result = cv2.imread(image)
         result = en.compress(cv2.imread(image))
-    
+    i = 0
     for image in dir_list[1:]:
+        i+=1
         print("Processing ",image)
         result = stitchPair(result, en.compress(cv2.imread(image)), key_opt)
+        cv2.imwrite("output_dir/int_res" + str(i) + ".png", result)
         # result = stitchPair(result, cv2.imread(image), key_opt)
         h, w = result.shape[:2]
         if h > 4000 and w > 4000:

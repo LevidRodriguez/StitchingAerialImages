@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import copy
-from google.colab import files
+# from google.colab import files
 
 def stitchPair(img1, img2):
     print("img1, img2")

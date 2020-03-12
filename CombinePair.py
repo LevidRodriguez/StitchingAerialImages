@@ -42,6 +42,8 @@ def combine(image1, image2, detector):
 
     matcher = cv2.BFMatcher()
     matches = matcher.knnMatch(descriptors2,descriptors1, k=2)
+    print(type(descriptors1))
+    print(type(descriptors2))
 
     good = []
     for m, n in matches:

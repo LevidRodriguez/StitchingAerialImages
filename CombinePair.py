@@ -44,7 +44,7 @@ def combine(image1, image2, detector):
 
     print (str(len(good)) + " Matches were Found")
 
-    if len(good) <= 10:
+    if len(good) <= 1:
         return image1
 
     matches = copy.copy(good)

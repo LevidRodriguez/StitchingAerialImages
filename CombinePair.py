@@ -24,13 +24,16 @@ def combine(image1, image2, detector):
 
     gray1 = cv2.cvtColor(image1,cv2.COLOR_BGR2GRAY)
     ret1, mask1 = cv2.threshold(gray1,1,255,cv2.THRESH_BINARY)
-    # kp1, descriptors1 = detector.detectAndCompute(gray1,mask1)
-    kp1, descriptors1 = _detector.detector(gray1)
+    kp1, descriptors1 = detector.detectAndCompute(gray1,mask1)
+    print("kp1: " + type(kp1) + " descriptors1: " + type(descriptors1))
+
+    # kp1, descriptors1 = _detector.detector(gray1)
 
     gray2 = cv2.cvtColor(image2,cv2.COLOR_BGR2GRAY)
     ret2, mask2 = cv2.threshold(gray2,1,255,cv2.THRESH_BINARY)
-    # kp2, descriptors2 = detector.detectAndCompute(gray2,mask2)
-    kp2, descriptors2 = _detector.detector(gray2)
+    kp2, descriptors2 = detector.detectAndCompute(gray2,mask2)
+    print("kp2: " + type(kp2) + " descriptors2: " + type(descriptors2))
+    # kp2, descriptors2 = _detector.detector(gray2)
 
     keypoints1Im = cv2.drawKeypoints(image1, kp1, outImage = cv2.DRAW_MATCHES_FLAGS_DEFAULT, color=(0,0,255))
     # util.display("KEYPOINTS",keypoints1Im)

@@ -5,6 +5,7 @@ import copy
 import utilities as util
 import glob
 from PIL import Image
+import cnnDetector as _detector
 
 def combine(image1, image2, detector):
 
@@ -23,11 +24,13 @@ def combine(image1, image2, detector):
 
     gray1 = cv2.cvtColor(image1,cv2.COLOR_BGR2GRAY)
     ret1, mask1 = cv2.threshold(gray1,1,255,cv2.THRESH_BINARY)
-    kp1, descriptors1 = detector.detectAndCompute(gray1,mask1)
+    # kp1, descriptors1 = detector.detectAndCompute(gray1,mask1)
+    kp1, descriptors1 = _detector.detector(gray1)
 
     gray2 = cv2.cvtColor(image2,cv2.COLOR_BGR2GRAY)
     ret2, mask2 = cv2.threshold(gray2,1,255,cv2.THRESH_BINARY)
-    kp2, descriptors2 = detector.detectAndCompute(gray2,mask2)
+    # kp2, descriptors2 = detector.detectAndCompute(gray2,mask2)
+    kp2, descriptors2 = _detector.detector(gray2)
 
     keypoints1Im = cv2.drawKeypoints(image1, kp1, outImage = cv2.DRAW_MATCHES_FLAGS_DEFAULT, color=(0,0,255))
     # util.display("KEYPOINTS",keypoints1Im)

@@ -1,0 +1,22 @@
+--- work/configure.ac.orig	2018-11-30 23:21:11.000000000 -0600
++++ work/configure.ac	2018-12-20 15:18:12.000000000 -0600
+@@ -344,7 +344,7 @@
+ 
+ # check for libcrypto - used in test programs
+ AC_LIB_HAVE_LINKFLAGS(crypto,, [#include <openssl/evp.h>  
+-], [EVP_CIPHER_CTX_init(NULL);])
++], [EVP_CIPHER_CTX_ctrl(NULL, EVP_CTRL_GCM_SET_TAG, 0, NULL);])
+ 
+ AM_CONDITIONAL(HAVE_LIBCRYPTO, test "$HAVE_LIBCRYPTO" = "yes")
+ 
+--- work/configure.orig	2018-12-20 15:19:38.000000000 -0600
++++ work/configure	2018-12-20 15:20:33.000000000 -0600
+@@ -15730,7 +15730,7 @@
+ int
+ main ()
+ {
+-EVP_CIPHER_CTX_init(NULL);
++EVP_CIPHER_CTX_ctrl(NULL, EVP_CTRL_GCM_SET_TAG, 0, NULL);
+   ;
+   return 0;
+ }

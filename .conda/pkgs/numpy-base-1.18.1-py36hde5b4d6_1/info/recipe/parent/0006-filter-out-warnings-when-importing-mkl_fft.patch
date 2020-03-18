@@ -1,0 +1,38 @@
+From c45ecb8429654e7e65eacc4b7909b8c56b9b93c0 Mon Sep 17 00:00:00 2001
+From: Jonathan Helmus <jjhelmus@gmail.com>
+Date: Fri, 1 Mar 2019 12:33:56 -0600
+Subject: [PATCH 6/7] filter out warnings when importing mkl_fft
+
+Filter out harmless Cython warnings when importing mkl_fft.  These filter are
+set globally when importing numpy but have not yet been set when importing from
+the fft folder.
+---
+ numpy/fft/__init__.py | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/numpy/fft/__init__.py b/numpy/fft/__init__.py
+index 6b9d8f94e..4fdb1ef03 100644
+--- a/numpy/fft/__init__.py
++++ b/numpy/fft/__init__.py
+@@ -202,9 +202,15 @@ del PytestTester
+ 
+ 
+ try:
+-    import mkl_fft._numpy_fft as _nfft
+-    patch_fft = True
+-    __patched_functions__ = _nfft.__all__
++    import warnings
++    with warnings.catch_warnings():
++        # Filter out harmless Cython warnings coming from mkl_fft
++        warnings.filterwarnings("ignore", message="numpy.dtype size changed")
++        warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
++        warnings.filterwarnings("ignore", message="numpy.ndarray size changed")
++        import mkl_fft._numpy_fft as _nfft
++        patch_fft = True
++        __patched_functions__ = _nfft.__all__
+ except ImportError:
+     patch_fft = False
+ 
+-- 
+2.20.1
+

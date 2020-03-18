@@ -1,0 +1,32 @@
+From a90e8b08f591161bb9bffc45526aeb8dd6e22876 Mon Sep 17 00:00:00 2001
+From: Michael Sarahan <msarahan@gmail.com>
+Date: Mon, 11 Jun 2018 16:36:41 -0500
+Subject: [PATCH 7/7] Obtain and prefer custom gfortran from env variable
+
+---
+ numpy/distutils/fcompiler/gnu.py | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/numpy/distutils/fcompiler/gnu.py b/numpy/distutils/fcompiler/gnu.py
+index 965c67041..7f7006f14 100644
+--- a/numpy/distutils/fcompiler/gnu.py
++++ b/numpy/distutils/fcompiler/gnu.py
+@@ -300,7 +300,14 @@ class Gnu95FCompiler(GnuFCompiler):
+                     self.executables[key].append('-mno-cygwin')
+         return v
+ 
+-    possible_executables = ['gfortran', 'f95']
++    possible_executables = []
++    _env_gfortran = os.getenv('GFORTRAN')
++    if _env_gfortran is not None:
++        possible_executables.append(os.path.basename(_env_gfortran))
++    possible_executables.extend(['gfortran', 'f95'])
++
++    if os.getenv('GFORTRAN'):
++        possible_executables.append(os.path.basename(os.getenv('GFORTRAN')))
+     executables = {
+         'version_cmd'  : ["<F90>", "-dumpversion"],
+         'compiler_f77' : [None, "-Wall", "-g", "-ffixed-form",
+-- 
+2.20.1
+

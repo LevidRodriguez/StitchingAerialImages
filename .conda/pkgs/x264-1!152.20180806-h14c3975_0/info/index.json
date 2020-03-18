@@ -1,0 +1,14 @@
+{
+  "arch": "x86_64",
+  "build": "h14c3975_0",
+  "build_number": 0,
+  "depends": [
+    "libgcc-ng >=7.3.0"
+  ],
+  "license": "GPL-2.0",
+  "name": "x264",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1552848863338,
+  "version": "1!152.20180806"
+}

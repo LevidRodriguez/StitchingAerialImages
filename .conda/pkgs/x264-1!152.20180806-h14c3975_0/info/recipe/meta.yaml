@@ -1,0 +1,53 @@
+# This file created by conda-build 3.17.8
+# meta.yaml template originally from:
+# /home/conda/recipe_root, last modified Sun Mar 17 18:51:33 2019
+# ------------------------------------------------
+
+package:
+    name: x264
+    version: 1!152.20180806
+source:
+    fn: x264-snapshot-20180806-2245-stable.tar.bz2
+    sha256: 958e78e7563f0018285ebdbff563fb22db89b0abf3649d7e914abd9d50785fc6
+    url: http://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-20180806-2245-stable.tar.bz2
+build:
+    number: '0'
+    run_exports:
+        - x264 >=1!152.20180806,<1!153
+    string: h14c3975_0
+requirements:
+    build:
+        - binutils_impl_linux-64 2.31.1 h6176602_1
+        - binutils_linux-64 2.31.1 h6176602_6
+        - gcc_impl_linux-64 7.3.0 habb00fd_1
+        - gcc_linux-64 7.3.0 h553295d_6
+        - libgcc-ng 7.3.0 hdf63c60_0
+        - libstdcxx-ng 7.3.0 hdf63c60_0
+        - make 4.2.1 h14c3975_2004
+        - nasm 2.13.02 h14c3975_1001
+        - perl 5.26.2 h14c3975_1002
+    host:
+        - libgcc-ng 7.3.0 hdf63c60_0
+    run:
+        - libgcc-ng >=7.3.0
+test:
+    commands:
+        - test -f ${PREFIX}/include/x264.h
+        - test -f ${PREFIX}/lib/libx264.a
+        - test -f ${PREFIX}/lib/libx264.so
+        - test -f ${PREFIX}/lib/libx264.so.152
+        - x264 --help
+about:
+    home: http://www.videolan.org/developers/x264.html
+    license: GPL-2.0
+    license_file: COPYING
+    summary: A free software library for encoding video streams into the H.264/MPEG-4
+        AVC format.
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - 183amir
+        - carlodri
+        - jakirkham
+        - sdvillal

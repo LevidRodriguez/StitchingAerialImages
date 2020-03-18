@@ -1,0 +1,71 @@
+{% set name = "gnutls" %}
+{% set version = "3.6.5" %}
+{% set sha256 = "073eced3acef49a3883e69ffd5f0f0b5f46e2760ad86eddc6c0866df4e7abb35" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.xz
+  url: ftp://ftp.gnutls.org/gcrypt/{{ name }}/v3.6/{{ name }}-{{ version }}.tar.xz
+  sha256: {{ sha256 }}
+  patches:
+    # This patch fixes things for OSX and the old compiler.
+    # For some reason it would detect that the compiler has
+    # no_weaak_imports, but not actually have it
+    - 0001-macosx_no_weak_imports.patch  # [osx and c_compiler=='clang']
+    # This patch fixes the pkgconfig test. It looks for the library
+    # in the correct place (${PREFIX}/lib and ${PREFIX}/includes) and
+    # uses gcc to compile the generated temporary files.
+    - 0002-pkgconfig.patch
+    # https://gitlab.com/gnutls/gnutls/issues/660
+    - 0003-Fix-libcrypto-test-it-must-always-fail.patch
+
+build:
+  number: 1002
+  skip: True  # [win]
+  run_exports:
+    # https://abi-laboratory.pro/?view=timeline&l=gnutls
+    - {{ pin_subpackage('gnutls', max_pin='x.x') }}
+  ignore_run_exports:
+    # Only used in tests: tests/suite/prime-check.c
+    - gmp
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - automake
+    - libtool
+    - make
+    - pkg-config
+  host:
+    - gettext >=0.19.8.1     # [osx]
+    - gmp
+    - nettle >=3.4.1
+    # - datefudge              # [linux]
+  run:
+    # ideally would add run_exports to nettle and gettext and remove these
+    - nettle >=3.4.1
+    - gettext >=0.19.8.1     # [osx]
+
+test:
+  commands:
+    - test -f ${PREFIX}/lib/libgnutls${SHLIB_EXT}    # [unix]
+    - test -f ${PREFIX}/lib/libgnutlsxx${SHLIB_EXT}  # [unix]
+
+about:
+  home: http://www.gnutls.org/index.html
+  license: LGPLv2.1
+  license_family: LGPL
+  license_file: LICENSE
+  summary: 'GnuTLS is a secure communications library implementing the SSL, TLS and DTLS protocols'
+  doc_url: http://www.gnutls.org/documentation.html
+  dev_url: https://gitlab.com/gnutls/gnutls/tree/master
+
+extra:
+  recipe-maintainers:
+    - sachalau
+    - sdvillal
+    - scopatz

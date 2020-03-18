@@ -1,0 +1,84 @@
+{% set name = "numpy" %}
+# version and sha defined in centralized conda_build_config.yml
+
+package:
+  name: numpy_base_and_dev
+  version: {{ numpy_version }}
+
+source:
+  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ numpy_version }}.zip
+    sha256: {{ numpy_sha }}
+    patches:
+      # patches in this if block are pulled in from https://github.com/IntelPython/numpy/tree/intel/1.17.0/conda-recipe/v1.17-patches
+      {% if blas_impl == "mkl" -%}
+      - 0001-intel_mkl-version.patch
+      - 0003-intel_init_mkl.patch
+      {%- endif %}
+      - 0007-Obtain-and-prefer-custom-gfortran-from-env-variable.patch
+
+build:
+  number: 1
+  skip: True  # [(blas_impl == 'openblas' and win) or py2k]
+  force_use_keys:
+    - python
+
+outputs:
+  # this one has all the actual contents
+  - name: numpy-base
+    script: install_base.sh   # [unix]
+    script: install_base.bat  # [win]
+    requirements:
+      build:
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
+        # HACK: need this for libquadmath.  Should fix the gcc package
+        - libgcc-ng                  # [linux]
+      host:
+        - cython
+        - python
+        - setuptools
+        - mkl-devel  {{ mkl }}  # [blas_impl == "mkl"]
+        - openblas-devel {{ openblas }}  # [blas_impl == "openblas"]
+      run:
+        - python
+    test:
+      commands:
+        - test -e $SP_DIR/numpy/distutils/site.cfg     # [unix]
+        - IF NOT EXIST %SP_DIR%\numpy\distutils\site.cfg exit 1  # [win]
+
+  # devel exists mostly to add the run_exports info.
+  - name: numpy-devel
+    build:
+      run_exports:
+        - {{ pin_subpackage('numpy-base') }}
+    requirements:
+      host:
+        - python
+        # these import blas metapackages to ensure consistency with downstream libs that also use blas
+        - mkl-devel  {{ mkl }}  # [blas_impl == 'mkl']
+        - openblas-devel {{ openblas }}  # [blas_impl == 'openblas']
+      run:
+        - python
+        - {{ pin_subpackage('numpy-base', exact=True) }}
+
+  # NOTE: "numpy" metapackage is defined in numpy-metapackage feedstock to avoid cycles
+
+about:
+  home: http://numpy.scipy.org/
+  license: BSD 3-Clause
+  license_file: LICENSE.txt
+  summary: 'Array processing for numbers, strings, records, and objects.'
+  description: |
+    NumPy is the fundamental package needed for scientific computing with Python.
+  doc_url: https://docs.scipy.org/doc/numpy-{{ numpy_version }}/reference/
+  dev_url: https://github.com/numpy/numpy
+  dev_source_url: https://github.com/numpy/numpy/tree/master/doc
+
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - msarahan
+    - pelson
+    - rgommers
+    - ocefpaf

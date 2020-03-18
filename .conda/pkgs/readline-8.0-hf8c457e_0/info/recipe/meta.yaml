@@ -1,0 +1,57 @@
+# This file created by conda-build 3.17.5
+# meta.yaml template originally from:
+# /home/conda/recipe_root, last modified Fri Jan 18 21:13:16 2019
+# ------------------------------------------------
+
+package:
+    name: readline
+    version: '8.0'
+source:
+    sha256: e339f51971478d369f8a053a330a190781acb9864cf4c541060f12078948e461
+    url: ftp://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz
+build:
+    number: '0'
+    run_exports:
+        - readline >=8.0,<9.0a0
+    string: hf8c457e_0
+requirements:
+    build:
+        - binutils_impl_linux-64 2.31.1 h6176602_1
+        - binutils_linux-64 2.31.1 h6176602_3
+        - gcc_impl_linux-64 7.3.0 habb00fd_1
+        - gcc_linux-64 7.3.0 h553295d_3
+        - libgcc-ng 7.3.0 hdf63c60_0
+        - libstdcxx-ng 7.3.0 hdf63c60_0
+        - make 4.2.1 h14c3975_2004
+        - pkg-config 0.29.2 h14c3975_1004
+    host:
+        - libgcc-ng 7.3.0 hdf63c60_0
+        - libstdcxx-ng 7.3.0 hdf63c60_0
+        - ncurses 6.1 hf484d3e_1002
+    run:
+        - libgcc-ng >=7.3.0
+        - ncurses >=6.1,<6.2.0a0
+test:
+    commands:
+        - test -f ${PREFIX}/lib/libreadline.a
+        - test -f ${PREFIX}/lib/libreadline${SHLIB_EXT}
+        - test -f ${PREFIX}/lib/libhistory.a
+        - test -f ${PREFIX}/lib/libhistory${SHLIB_EXT}
+about:
+    home: https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
+    license: GPL-3.0
+    license_file: COPYING
+    summary: library for editing command lines as they are typed in
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - asmeurer
+        - croth1
+        - jakirkham
+        - jjhelmus
+        - mingwandroid
+        - msarahan
+        - msarahan
+        - ocefpaf
+        - pelson

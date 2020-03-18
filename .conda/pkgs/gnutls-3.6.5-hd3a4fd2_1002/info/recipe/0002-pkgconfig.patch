@@ -1,0 +1,32 @@
+--- a/tests/Makefile.am	2018-11-20 14:10:51.000000000 -0500
++++ b/tests/Makefile.am	2018-12-19 00:12:33.056398646 -0500
+@@ -453,7 +453,7 @@
+ dtls_stress_LDADD = $(COMMON_GNUTLS_LDADD) \
+ 	$(COMMON_DEPS_LDADD)
+ 
+-dist_check_SCRIPTS += fastopen.sh pkgconfig.sh starttls.sh starttls-ftp.sh starttls-smtp.sh \
++dist_check_SCRIPTS += fastopen.sh starttls.sh starttls-ftp.sh starttls-smtp.sh \
+ 	starttls-lmtp.sh starttls-pop3.sh starttls-nntp.sh starttls-sieve.sh \
+ 	ocsp-tests/ocsp-tls-connection ocsp-tests/ocsp-must-staple-connection \
+ 	ocsp-tests/ocsp-test cipher-listings.sh sni-hostname.sh server-multi-keys.sh \
+
+--- a/tests/Makefile.in	2018-12-01 00:24:17.000000000 -0500
++++ b/tests/Makefile.in	2018-12-19 00:15:23.634158550 -0500
+@@ -165,7 +165,7 @@
+ # List of tests not available/functional under windows
+ #
+ @WINDOWS_FALSE@am__append_13 = dtls/dtls dtls/dtls-resume fastopen.sh \
+-@WINDOWS_FALSE@	pkgconfig.sh starttls.sh starttls-ftp.sh \
++@WINDOWS_FALSE@	starttls.sh starttls-ftp.sh \
+ @WINDOWS_FALSE@	starttls-smtp.sh starttls-lmtp.sh \
+ @WINDOWS_FALSE@	starttls-pop3.sh starttls-nntp.sh \
+ @WINDOWS_FALSE@	starttls-sieve.sh \
+@@ -2665,7 +2665,7 @@
+ 	$(am__DEPENDENCIES_2)
+ am__dist_check_SCRIPTS_DIST = rfc2253-escape-test \
+ 	rsa-md5-collision/rsa-md5-collision.sh systemkey.sh dtls/dtls \
+-	dtls/dtls-resume fastopen.sh pkgconfig.sh starttls.sh \
++	dtls/dtls-resume fastopen.sh starttls.sh \
+ 	starttls-ftp.sh starttls-smtp.sh starttls-lmtp.sh \
+ 	starttls-pop3.sh starttls-nntp.sh starttls-sieve.sh \
+ 	ocsp-tests/ocsp-tls-connection \

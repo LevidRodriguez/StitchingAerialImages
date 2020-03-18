@@ -1,0 +1,29 @@
+# This file created by conda-build 3.18.11
+# ------------------------------------------------
+
+package:
+    name: binutils_linux-64
+    version: 2.31.1
+source:
+    path: /tmp/build/80754af9/rsync-recipes/ctng-compiler-activation-7.3.0-on-linux_64
+build:
+    noarch: false
+    number: '9'
+    script: install-binutils.sh
+    string: h6176602_9
+requirements:
+    run:
+        - binutils_impl_linux-64 2.31.1.*
+test:
+    commands:
+        - test -f $LD
+about:
+    home: https://github.com/conda-forge/ctng-compiler-activation-feedstock
+    license: BSD-3-Clause
+    license_file: LICENSE
+    summary: The GNU Binutils are a collection of binary tools (activation scripts)
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - isuruf

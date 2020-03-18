@@ -1,0 +1,30 @@
+{
+  "arch": "x86_64",
+  "build": "py36hde5b4d6_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "constrains": [],
+  "depends": [
+    "blas 1.0 mkl",
+    "libgcc-ng >=7.3.0",
+    "libgfortran-ng >=7,<8.0a0",
+    "mkl >=2019.4,<2021.0a0",
+    "mkl-service >=2,<3.0a0",
+    "python >=3.6,<3.7.0a0"
+  ],
+  "features": "",
+  "fn": "numpy-base-1.18.1-py36hde5b4d6_1.conda",
+  "legacy_bz2_md5": "a6c1ec98e14165a39559df4b18b8aadf",
+  "legacy_bz2_size": 5485786,
+  "license": "BSD 3-Clause",
+  "md5": "88159e051f4df8b518525d72bb82d3fb",
+  "name": "numpy-base",
+  "platform": "linux",
+  "sha256": "1f2eec48404687714ae00b9b0d13fd9c76ebd3a438c6a3ded9504db64414a89b",
+  "size": 4370376,
+  "subdir": "linux-64",
+  "timestamp": 1579712562571,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/numpy-base-1.18.1-py36hde5b4d6_1.conda",
+  "version": "1.18.1"
+}

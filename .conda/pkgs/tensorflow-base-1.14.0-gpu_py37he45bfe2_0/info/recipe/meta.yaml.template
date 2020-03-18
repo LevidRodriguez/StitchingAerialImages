@@ -1,0 +1,124 @@
+{% set version = "1.14.0" %}
+
+# This is the recipe for the "gpu" variant of tensorflow-base
+package:
+  name: tensorflow-base
+  version: {{ version }}
+
+source:
+  fn: tensorflow-{{ version }}.tar.gz
+  url: https://github.com/tensorflow/tensorflow/archive/v{{ version }}.tar.gz
+  sha256: aa2a6a1daafa3af66807cfe0bc77bfe1144a9a53df9a96bab52e3e575b3047ed
+  patches:
+    - 0008-do-not-include-B-usr-bin-flag.patch  # [linux]
+    - 0009-patch-nccl-for-older-kernels.patch   # [linux]
+
+build:
+  number: 0
+  string: gpu_py{{ CONDA_PY }}h{{PKG_HASH}}_{{ PKG_BUILDNUM }}
+  skip: True  # [not x86_64]
+  skip: True  # [win and vc<14]
+  entry_points:
+    - freeze_graph = tensorflow.python.tools.freeze_graph:run_main
+    - toco_from_protos = tensorflow.lite.toco.python.toco_from_protos:main
+    - tflite_convert = tensorflow.lite.python.tflite_convert:main
+    - toco = tensorflow.lite.python.tflite_convert:main
+    - saved_model_cli = tensorflow.python.tools.saved_model_cli:main
+    - tf_upgrade_v2 = tensorflow.tools.compatibility.tf_upgrade_v2_main:main
+    # The tensorboard package adds this entry point.
+    # - tensorboard = tensorboard.main:run_main
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - bazel >=0.24.1,<0.25.2
+  host:
+    - bazel >=0.24.1,<0.25.2 # [win]
+    # conda build requirements
+    - posix  # [win]
+    - m2-patch  # [win]
+    - pip
+    - setuptools <=39.1.0
+    - python
+    - swig
+    - zlib
+    # GPU requirements
+    - cudatoolkit {{ cudatoolkit }}*
+    - cudnn {{ cudnn }}*
+    - cupti  # [not win]
+    # requirements specified by the package itself
+    - absl-py >=0.7.0
+    - astor >=0.6.0
+    - gast >=0.2.0
+    - google-pasta >=0.1.6
+    - keras-applications >=1.0.6
+    - keras-preprocessing >=1.0.5
+    - numpy 1.14
+    - six >=1.10.0
+    - protobuf >=3.6.1
+    - termcolor >=1.1.0
+    - wrapt >=1.11.1
+    - grpcio >=1.8.6
+    - wheel >=0.26
+    - mock >=2.0.0                # [py2k]
+    - backports.weakref >=1.0rc1  # [py2k]
+    - enum34 >=1.1.6              # [py2k]
+    - future                      # [py2k]
+    # the following packages are required for testing
+    - m2-perl             # [win]
+    - portpicker
+    - pyreadline          # [win]
+    - scipy
+    - scikit-learn
+  run:
+    - python
+    - absl-py >=0.7.0
+    - astor >=0.6.0
+    - gast >=0.2.0
+    - google-pasta >=0.1.6
+    - keras-applications >=1.0.6
+    - keras-preprocessing >=1.0.5
+    - {{ pin_compatible('numpy') }}
+    - six >=1.10.0
+    - protobuf >=3.6.1
+    - termcolor >=1.1.0
+    - wrapt >=1.11.1
+    - grpcio >=1.8.6
+    - mock >=2.0.0                # [py2k]
+    - backports.weakref >=1.0rc1  # [py2k]
+    - enum34 >=1.1.6              # [py2k]
+    - future                      # [py2k]
+    - {{ pin_compatible('cudatoolkit', max_pin='x.x') }}
+    - {{ pin_compatible('cudnn') }}
+    - cupti  # [not win]
+
+test:
+  # the tensorflow import is tested by the run_test.sh script
+  #imports:
+  #  - tensorflow
+  files:
+    - gpu_test.py
+  commands:
+    - freeze_graph --help
+    - saved_model_cli --help
+    - tflite_convert --help     # [not win]
+    - toco_from_protos --help   # [not win]
+    - toco --help               # [not win]
+
+
+about:
+  home: http://tensorflow.org/
+  license: Apache 2.0
+  license_family: Apache
+  summary: TensorFlow is a machine learning library, base GPU package, tensorflow only.
+  description: |
+    TensorFlow provides multiple APIs.The lowest level API, TensorFlow Core
+    provides you with complete programming control.
+    Base GPU package contains only tensorflow, not tensorflow-tensorboard.
+  dev_url: https://github.com/tensorflow/tensorflow
+  doc_url: https://www.tensorflow.org/get_started/get_started
+  doc_source_url: https://github.com/tensorflow/tensorflow/tree/master/tensorflow/docs_src
+
+extra:
+  tflow_variant: {{ tflow_variant }}

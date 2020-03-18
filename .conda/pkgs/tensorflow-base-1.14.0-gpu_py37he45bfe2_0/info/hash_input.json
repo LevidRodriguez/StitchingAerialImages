@@ -1,0 +1,9 @@
+{
+  "cudatoolkit": "10.1",
+  "c_compiler_version": "5.4",
+  "cxx_compiler_version": "5.4",
+  "cudnn": "7.6",
+  "tflow_variant": "gpu",
+  "cxx_compiler": "gxx",
+  "c_compiler": "gcc"
+}

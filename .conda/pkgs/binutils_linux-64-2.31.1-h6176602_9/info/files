@@ -1,0 +1,2 @@
+etc/conda/activate.d/activate-binutils_linux-64.sh
+etc/conda/deactivate.d/deactivate-binutils_linux-64.sh

@@ -1,0 +1,49 @@
+{
+  "paths": [
+    {
+      "_path": "bin/x264",
+      "path_type": "hardlink",
+      "sha256": "42b014d1ad63347b1526668411fa810e042f8a08402bc020700e167571e1d3c0",
+      "size_in_bytes": 1245400
+    },
+    {
+      "_path": "include/x264.h",
+      "path_type": "hardlink",
+      "sha256": "818ec792d07fa9e4f58fc981e476d4a66d5d57476799e02f4ea896be6ad4360d",
+      "size_in_bytes": 46920
+    },
+    {
+      "_path": "include/x264_config.h",
+      "path_type": "hardlink",
+      "sha256": "3e7e55e4726ea4b299da599de98fe451b383d7811847e1d7b4c1a3d2726349e2",
+      "size_in_bytes": 172
+    },
+    {
+      "_path": "lib/libx264.a",
+      "path_type": "hardlink",
+      "sha256": "d5b7ec78014100dcb40821b021c5284f4f66a61f0d6a7b5ce50882846d3f8d50",
+      "size_in_bytes": 1625984
+    },
+    {
+      "_path": "lib/libx264.so",
+      "path_type": "softlink",
+      "sha256": "830adab9ac723d608aea1f1b7bb4538f06ea1dee27d8cf38613264307574b210",
+      "size_in_bytes": 1150288
+    },
+    {
+      "_path": "lib/libx264.so.152",
+      "path_type": "hardlink",
+      "sha256": "830adab9ac723d608aea1f1b7bb4538f06ea1dee27d8cf38613264307574b210",
+      "size_in_bytes": 1150288
+    },
+    {
+      "_path": "lib/pkgconfig/x264.pc",
+      "file_mode": "text",
+      "path_type": "hardlink",
+      "prefix_placeholder": "/opt/anaconda1anaconda2anaconda3",
+      "sha256": "371ba4f539389c8790173aa1b0275dac350f460c4e8c22ddab4bd94df012c902",
+      "size_in_bytes": 289
+    }
+  ],
+  "paths_version": 1
+}

@@ -1,0 +1,17 @@
+{
+  "paths": [
+    {
+      "_path": "etc/conda/activate.d/activate-binutils_linux-64.sh",
+      "path_type": "hardlink",
+      "sha256": "e5ea17a149bb9769923da4e19ebe31ea03102fefd5f413f839cf99b0fe7fdebf",
+      "size_in_bytes": 3628
+    },
+    {
+      "_path": "etc/conda/deactivate.d/deactivate-binutils_linux-64.sh",
+      "path_type": "hardlink",
+      "sha256": "25b8c190add8b52bf2eabc39c7cb87f85de627b21263af6f57052f267298c7fa",
+      "size_in_bytes": 3630
+    }
+  ],
+  "paths_version": 1
+}

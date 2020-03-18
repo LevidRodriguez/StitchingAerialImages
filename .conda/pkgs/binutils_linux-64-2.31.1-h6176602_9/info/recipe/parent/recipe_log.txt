@@ -1,0 +1,288 @@
+commit 6cbada5dda2a101afbc16fce809ccd859b83d96c
+Merge: 50d5eca bf52fcf
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 21 22:31:54 2019 -0600
+
+    Merge pull request #6 from isuruf/binutils
+    
+    Update binutils
+
+commit bf52fcfb4405035d8d59d75c3935e4493cd7ac88
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Fri Nov 22 04:18:59 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.11, conda-smithy 3.6.2, and conda-forge-pinning 2019.11.20
+
+commit f9ee66fe68bd6ffacb59894065f2614d8215891f
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 21 22:17:29 2019 -0600
+
+    Update conda_build_config.yaml
+
+commit 8ff55749f7cf6b4bcab6f3cd10ed85e41a813474
+Merge: 3da7d9a 50d5eca
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 21 22:17:09 2019 -0600
+
+    Merge branch 'master' into binutils
+
+commit 50d5eca739d954e69798f0c4b3b56319a7922236
+Merge: 29a8a63 57fae15
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 14 21:23:51 2019 -0600
+
+    Merge pull request #10 from beckermr/isys
+    
+    ENH use -isystem everywhere
+
+commit 57fae1520448fb7cc977e8ba78de9a366344de1c
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Fri Nov 15 02:46:45 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.11, conda-smithy 3.6.2, and conda-forge-pinning 2019.11.13
+
+commit 1891623c2b0b82cb9ab05bf35eb87025a05c9ecf
+Author: Matthew R Becker <becker.mr@gmail.com>
+Date:   Thu Nov 14 20:44:25 2019 -0600
+
+    bump build num
+
+commit 1acbae5fe4f6bc69b28786b7bf4e482c94e1166c
+Author: Matthew R Becker <becker.mr@gmail.com>
+Date:   Thu Nov 14 20:43:21 2019 -0600
+
+    ENH use isystem everywhere
+
+commit 29a8a630f3036bff05a4ac73d75ca32e021de81c
+Merge: ab2ebd1 04aa6b9
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 14 18:24:24 2019 -0600
+
+    Merge pull request #9 from Quansight/pearu/conda-build-sysroot
+    
+    Define CONDA_BUILD_SYSROOT environment variable
+
+commit 04aa6b9f2b3378769ff183397c5b89803864ca04
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 14 17:56:16 2019 -0600
+
+    Fix in deactivate as well
+
+commit c159683980d194ce80c19dad9ed3456273fc4cd2
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 14 17:52:43 2019 -0600
+
+    Fix cmake prefix path as well
+
+commit 9f041e29d8d782bf2820ae7de5de62e778830c0f
+Author: Pearu Peterson <pearu.peterson@gmail.com>
+Date:   Fri Nov 15 01:45:27 2019 +0200
+
+    Fix CONDA_BUILD_SYSROOT
+
+commit 0d633ca3be8a7220e2b4136ee19ec28fb9f7b0cf
+Author: Pearu Peterson <pearu.peterson@gmail.com>
+Date:   Fri Nov 15 00:55:32 2019 +0200
+
+    Fix CONDA_BUILD_SYSROOT_USED when CONDA_BUILD=1. Turn CONDA_BUILD_SYSROOT non-existence to a warning.
+
+commit dab3360237b1e93602401c46257b5cc3555a0c2b
+Author: Pearu Peterson <pearu.peterson@gmail.com>
+Date:   Thu Nov 14 23:41:53 2019 +0200
+
+    Fix CONDA_BUILD_SYSROOT_USED when in CONDA_BUILD
+
+commit 97d1787bbdafd357957a1ac144d014dbfb1074aa
+Author: Pearu Peterson <pearu.peterson@gmail.com>
+Date:   Thu Nov 14 23:32:29 2019 +0200
+
+    Add CONDA_BUILD_SYSROOT to gcc deactivate as well.
+
+commit adae8232daeb77801086c743eb577ed905876032
+Author: Pearu Peterson <pearu.peterson@gmail.com>
+Date:   Thu Nov 14 16:58:26 2019 +0200
+
+    Update recipe/activate-gcc.sh
+    
+    Co-Authored-By: Isuru Fernando <isuruf@gmail.com>
+
+commit 68f9c59d9b53297d87744e06f78a4570fed66768
+Author: Pearu Peterson <pearu.peterson@gmail.com>
+Date:   Thu Nov 14 16:19:25 2019 +0200
+
+    MNT: Re-rendered with conda-build 3.18.9, conda-smithy 3.6.2, and conda-forge-pinning 2019.11.13
+
+commit f0454543f67280486d2c5079f5649b1a98b82a2c
+Author: Pearu Peterson <pearu.peterson@gmail.com>
+Date:   Thu Nov 14 16:09:05 2019 +0200
+
+    Increment build number
+
+commit e50074530aefe488c4abda078edabeb4d136e53a
+Author: Pearu Peterson <pearu.peterson@gmail.com>
+Date:   Thu Nov 14 16:05:50 2019 +0200
+
+    Define CONDA_BUILD_SYSROOT
+
+commit 3da7d9a59427a8b1068ca78304d2fe10667dd4c2
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Sun Oct 27 01:10:47 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.10, conda-smithy 3.6.0, and conda-forge-pinning 2019.10.25
+
+commit 6764e033adca3d5afe4577c2198d03cd5fb3cfa5
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sun Oct 27 00:48:33 2019 +0000
+
+    verbose
+
+commit a6973921fb0d74e3587dc1d6f387d246ae738671
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Oct 26 23:55:35 2019 +0000
+
+    Update binutils
+
+commit ab2ebd1fa9e6ff95eaa731fd369b96d184b6644c
+Merge: d59a137 c504a59
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Oct 25 00:36:21 2019 -0500
+
+    Merge pull request #5 from isuruf/bootstrap
+    
+    Add gcc_bootstrap
+
+commit c504a590ae026ea096bdfdbce0b541c71e6c85df
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Fri Oct 25 05:21:31 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.10, conda-smithy 3.6.0, and conda-forge-pinning 2019.10.22
+
+commit fe3a22cd6f369ffae4a565fa34eeb6235c8061d1
+Merge: 3bb6bcf d59a137
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Oct 25 05:19:48 2019 +0000
+
+    Merge branch 'master' of github.com:conda-forge/ctng-compiler-activation-feedstock
+
+commit 3bb6bcf9c6dd2e9b424f44479f09c2fdeefe4b7d
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Oct 25 05:14:31 2019 +0000
+
+    Fix linter
+
+commit a9ebfcba3070cc03e3daa2c72bb5951c90aa9218
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Oct 25 05:11:38 2019 +0000
+
+    Add gcc_bootstrap
+
+commit d59a1371997e4e32f20fa069f16b6a0a0b5cad32
+Merge: ab2fb20 0bacf68
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sun Oct 13 20:17:04 2019 -0500
+
+    Merge pull request #4 from isuruf/ldflags
+    
+    Fix LDFLAGS
+
+commit 0bacf68ad37360f137acff19770d48c746d3dcc6
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Mon Oct 14 01:08:14 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.9, conda-smithy 3.6.0, and conda-forge-pinning 2019.10.11
+
+commit 65452f739e090274d33c4d21d9c6b0b3a300a1e9
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sun Oct 13 20:06:44 2019 -0500
+
+    Fix LDFLAGS
+
+commit ab2fb2013abcececddb86b0dc00a35bb27b1dc4e
+Merge: 24a6956 4b3aa62
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Oct 10 13:54:56 2019 -0500
+
+    Merge pull request #3 from isuruf/isystem
+    
+    Use -isystem instead of -I
+
+commit 4b3aa62a1f33b5b0f851906f5674ce7fc271fb82
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Thu Oct 10 18:42:37 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.9, conda-smithy 3.5.0, and conda-forge-pinning 2019.10.08
+
+commit aa28e6aa905bfd9bb880163e6a98b208f3f5c78b
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Oct 10 18:37:41 2019 +0000
+
+    Use -isystem instead of -I
+
+commit 24a695667b5c14dd752f0b4f58078f6500d45b69
+Merge: 1aa861a 9e57503
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Oct 10 01:50:30 2019 -0500
+
+    Merge pull request #2 from isuruf/flags
+    
+    Add to PREFIX/lib to LDFLAGS and PREFIX/include to CFLAGS
+
+commit 9e57503756d7cf7b25850ec2d469fe59f98270a1
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Thu Oct 10 06:43:36 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.9, conda-smithy 3.5.0, and conda-forge-pinning 2019.10.08
+
+commit 872714312c5003bc3f629384fd44cfa9a24de662
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Oct 10 06:41:32 2019 +0000
+
+    Add PREFIX for CXXFLAGS as well
+
+commit a3907a9a113890fa4246888e46f42cacba564e6b
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Oct 4 02:04:18 2019 +0000
+
+    Add to PREFIX/lib to LDFLAGS and PREFIX/include to CFLAGS
+    
+    Because the compiler automatically adds PREFIX/lib to rpath
+    it doesn't make sense not adding these.
+
+commit 1aa861a33cd1ae37d474018306593ca6fe6c7395
+Merge: 3a1c9fe 8012d53
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Sep 26 10:39:19 2019 -0500
+
+    Merge pull request #1 from isuruf/arch
+    
+    Build for aarch64 and ppc64le
+
+commit 8012d536108719f95a2a9a636fc27cdeb30f9d4c
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Sep 26 15:27:15 2019 +0000
+
+    Build for aarch64 and ppc64le
+
+commit 8ced297ed81c9078d5bc6d14c8f8717a914110d0
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Sep 26 15:26:53 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.9, conda-smithy 3.4.8, and conda-forge-pinning 2019.09.25
+
+commit 46cb1ce678941c86c259a82f9b44e2f21d90e837
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Sep 26 15:22:01 2019 +0000
+
+    Update build number
+
+commit 3a1c9fe2a09abd0674569db8fa5e10aabe1da768
+Author: Travis-CI on github.com/conda-forge/staged-recipes <conda-forge@googlegroups.com>
+Date:   Thu Sep 26 15:05:53 2019 +0000
+
+    Re-render the feedstock after CI registration.
+
+commit 430b021398ad129856332a0315f47d2f906ab5ba
+Author: Travis-CI on github.com/conda-forge/staged-recipes <conda-forge@googlegroups.com>
+Date:   Thu Sep 26 15:02:00 2019 +0000
+
+    Initial feedstock commit with conda-smithy 3.4.8.

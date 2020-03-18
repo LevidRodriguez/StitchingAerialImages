@@ -1,0 +1,6 @@
+/opt/anaconda1anaconda2anaconda3 text bin/freeze_graph
+/opt/anaconda1anaconda2anaconda3 text bin/saved_model_cli
+/opt/anaconda1anaconda2anaconda3 text bin/tf_upgrade_v2
+/opt/anaconda1anaconda2anaconda3 text bin/tflite_convert
+/opt/anaconda1anaconda2anaconda3 text bin/toco
+/opt/anaconda1anaconda2anaconda3 text bin/toco_from_protos

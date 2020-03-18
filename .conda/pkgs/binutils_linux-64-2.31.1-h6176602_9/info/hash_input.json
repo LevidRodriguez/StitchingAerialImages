@@ -1,0 +1,4 @@
+{
+  "ctng_target_platform": "linux-64",
+  "ctng_binutils": "2.31.1"
+}

@@ -21,10 +21,10 @@ def combine(image1, image2, detector):
 
     #detector.setExtended (True)
     #detector.setUpright (True)
-    kp1, descriptors1 = _detector.detector(image1)
-    kp2, descriptors2 = _detector.detector(image2)
-    print("kp1: " + type(kp1) + " descriptors1: " + type(descriptors1))
-    print("kp2: " + type(kp2) + " descriptors2: " + type(descriptors2))
+    # kp1, descriptors1 = _detector.detector(image1)
+    # kp2, descriptors2 = _detector.detector(image2)
+    # print("kp1: " + type(kp1) + " descriptors1: " + type(descriptors1))
+    # print("kp2: " + type(kp2) + " descriptors2: " + type(descriptors2))
 
     gray1 = cv2.cvtColor(image1,cv2.COLOR_BGR2GRAY)
     ret1, mask1 = cv2.threshold(gray1,1,255,cv2.THRESH_BINARY)

@@ -133,7 +133,7 @@ def match_images(results_dict, image_1_path, image_2_path):
         locations_1_to_use,
         locations_2_to_use,
         np.column_stack((inlier_idxs, inlier_idxs)),
-        matches_color='b')
+        matches_color='b')  
     ax.axis('off')
     ax.set_title('DELF correspondences')
     # plt.show()
